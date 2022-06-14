@@ -1,23 +1,5 @@
 #include "../include/window.h"
 
-void Tr_TextBox(GF_BGL_BMPWIN *win)
-{
-    u8 type = 0;
-
-    *(u16*)0x04000050 = 0x1b4f;
-    *(u16*)0x04000052 = 0x0510;
-
-    TalkWinGraphicSet(win->ini, GF_BGL_BmpWinGet_Frame(win),944, 10, 1, 4);
-    
-    if(GF_BGL_BmpWinGet_Frame(win) > 4)
-        type = 4;
-    ArcUtil_PalSet(38,51,type,10 * 0x20,0x20,4);
-
-    FieldTalkWinClear(win);
-
-    BmpTalkWinWrite(win, 0, 944, 10);
-}
-
 u16 fontPal[16] = {0x3713, 0x7FFF, 0x5EF5, 0x089D, 0x5EBF, 0x0F45, 0x47B3, 0x7DC0, 0x76EF, 0x5E5F, 0x737F, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 /*tbox bg*/};
 u8 colorComponents[2][3] = {{0, 0, 0}, {0, 0, 0}}; // rgb for both normal color and the shade color.  
 u8 slotToOverwrite = 3; // by default overwrite the red color
@@ -81,6 +63,28 @@ void ArcUtil_PalSetEzCommon_rawPal(u32 palType, u32 srcOfs, u32 dstOfs, u32 tran
         break;
     }
 }
+
+void Tr_TextBox(GF_BGL_BMPWIN *win)
+{
+    u8 type = 0;
+
+    *(u16*)0x04000050 = 0x1b4f;
+    *(u16*)0x04000052 = 0x0510;
+    
+    ArcUtil_PalSetEzCommon_rawPal(type, 0, 0x180, 0x20);
+
+    TalkWinGraphicSet(win->ini, GF_BGL_BmpWinGet_Frame(win),944, 10, 1, 4);
+    
+    if(GF_BGL_BmpWinGet_Frame(win) > 4)
+        type = 4;
+    ArcUtil_PalSet(38,51,type,10 * 0x20,0x20,4);
+
+    FieldTalkWinClear(win);
+
+    BmpTalkWinWrite(win, 0, 944, 10);
+}
+
+
 
 void FieldMsgPrintInit(u32 type, u32 init)
 {
