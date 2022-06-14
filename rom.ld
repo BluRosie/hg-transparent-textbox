@@ -154,3 +154,14 @@ Sub_ScrnOffsetRewrite = 0x31624 + 0x022378C1;
 EffectTCB_Add = 0x315C4 + 0x022378C1;
 
 Snd_SePlay = 0x0200604C | 1;
+
+
+PalSetEzCommon_FuncTable = 0x020F5968;
+GX_BeginLoadBGExtPltt = 0x020D0524; /* all these in arm */
+GX_EndLoadBGExtPltt = 0x020D0634;
+GXS_BeginLoadBGExtPltt = 0x020D0774;
+GXS_EndLoadBGExtPltt = 0x020D07F0;
+GX_BeginLoadOBJExtPltt = 0x020D067C;
+GX_EndLoadOBJExtPltt = 0x020D0730;
+GXS_BeginLoadOBJExtPltt = 0x020D0830;
+GXS_EndLoadOBJExtPltt = 0x020D08AC;

@@ -28,3 +28,13 @@ void __attribute__((long_call)) FillWindowPixelBuffer(void*,u8);
 void __attribute__((long_call)) PutWindows(void*);
 void __attribute__((long_call)) ConvertNumToString(void *, u32 msg_id, u32 num, u8 keta, u8 type);
 void __attribute__((long_call)) StringPut(void *wk, void *win, u32 col, u32 mode);
+
+
+void __attribute__((long_call)) GX_BeginLoadBGExtPltt();
+void __attribute__((long_call)) GX_EndLoadBGExtPltt();
+void __attribute__((long_call)) GXS_BeginLoadBGExtPltt();
+void __attribute__((long_call)) GXS_EndLoadBGExtPltt();
+void __attribute__((long_call)) GX_BeginLoadOBJExtPltt();
+void __attribute__((long_call)) GX_EndLoadOBJExtPltt();
+void __attribute__((long_call)) GXS_BeginLoadOBJExtPltt();
+void __attribute__((long_call)) GXS_EndLoadOBJExtPltt();
