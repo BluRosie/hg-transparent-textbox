@@ -18,9 +18,9 @@ void Tr_TextBox(GF_BGL_BMPWIN *win)
     BmpTalkWinWrite(win, 0, 944, 10);
 }
 
-static u16 fontPal[16] = {0x3713, 0x7FFF, 0x5EF5, 0x089D, 0x5EBF, 0x0F45, 0x47B3, 0x7DC0, 0x76EF, 0x5E5F, 0x737F, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 /*tbox bg*/};
-static u8 colorComponents[2][3] = {{0, 0, 0}, {0, 0, 0}}; // rgb for both normal color and the shade color.  
-static u8 slotToOverwrite = 3; // by default overwrite the red color
+u16 fontPal[16] = {0x3713, 0x7FFF, 0x5EF5, 0x089D, 0x5EBF, 0x0F45, 0x47B3, 0x7DC0, 0x76EF, 0x5E5F, 0x737F, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 /*tbox bg*/};
+u8 colorComponents[2][3] = {{0, 0, 0}, {0, 0, 0}}; // rgb for both normal color and the shade color.  
+u8 slotToOverwrite = 3; // by default overwrite the red color
 
 // colors are abbbbbgggggrrrrr
 #define COMP_RED (0)
@@ -50,6 +50,7 @@ void ArcUtil_PalSetEzCommon_rawPal(u32 palType, u32 srcOfs, u32 dstOfs, u32 tran
         fontPal[slotToOverwrite] = (colorComponents[1][COMP_RED] / 8)  
                                  | (colorComponents[1][COMP_GREEN] / 8) << 5
                                  | (colorComponents[1][COMP_BLUE] / 8) << 10;
+        slotToOverwrite--; // revert back to normal state to prevent palette destruction as time goes on
     }
     
 
