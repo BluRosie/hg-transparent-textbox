@@ -44,7 +44,7 @@ LDFLAGS = rom.ld -T linker.ld
 ASFLAGS = -mthumb -I ./data
 CFLAGS = -mthumb -mno-thumb-interwork -mcpu=arm7tdmi -mtune=arm7tdmi -mno-long-calls -march=armv4t -Wall -Wextra -Os -fira-loop-pressure -fipa-pta
 
-PYTHON = python3.7
+PYTHON = python3
 LINK = build/linked.o
 OUTPUT = build/output.bin
 ####################### output #########################
@@ -91,7 +91,7 @@ all: $(OUTPUT)
 	$(NARCHIVE) extract base/root/a/0/2/8 -o build/a028/ -nf
 	$(PYTHON) scripts/make.py
 	$(ARMIPS) $(ARMIPS_SRCS)
-	make move_narc
+	$(MAKE) move_narc
 	$(NARCHIVE) create build/synth.narc build/a028/ -nf
 	cp build/synth.narc base/root/a/0/2/8
 	@echo -e "\e[32;1mMaking ROM..\e[37;1m"
