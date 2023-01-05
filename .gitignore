@@ -18,3 +18,5 @@ dumpitem.py
 
 # pycache files
 *.pyc
+tools/ndstool
+tools/armips
