@@ -15,15 +15,19 @@
 
 3. Install WSL using  [**Lunos' tutorial**][LUNOS].  Follow steps 6 and 6.5 to make sure Devkitpro is installed correctly.
 
-4. Install Python 3.7 through WSL using `sudo apt-get install python3.7`.
+4. Install Python 3 through WSL using `sudo apt-get install python3`.
 
 5. Get your ROM, rename it to **rom.nds** and place it the main (master) folder.
 
 6. Shift + right click in the main folder, click on **Open Linux shell here** from the **main folder**. 
 
-7. In the window, type `make`.
+7. In the window, type `python3 -m pip install ndspy`.
 
-8. A new nds file will appear named as **test.nds** and an **offsets.ini** file after everything has built.
+7. In the window, type `make build_tools -j`.
+
+8. In the window, type `make -j`.
+
+9. A new nds file will appear named as **test.nds** and an **offsets.ini** file after everything has built.
 
 # Credits
 * [CREDITS.md](CREDITS.md).

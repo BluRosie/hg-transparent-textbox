@@ -23,16 +23,8 @@ default: all
 ROMNAME = rom.nds
 BUILDROM = test.nds
 ####################### Tools #########################
-MSGENC = tools/msgenc$(EXE)
-NITROGFX = tools/nitrogfx$(EXE)
-NDSTOOL = tools/ndstool$(EXE)
-JSONPROC = tools/jsonproc$(EXE)
-O2NARC = tools/o2narc$(EXE)
-KNARC = tools/knarc$(EXE)
-BLZ = tools/blz$(EXE)
-ARMIPS = tools/armips$(EXE)
-POKEPICTOOL = tools/pokepic$(EXE)
-NARCHIVE = tools/narchive$(EXE)
+NDSTOOL = tools/ndstool
+ARMIPS = tools/armips
 ####################### Seting ########################
 PREFIX = bin/arm-none-eabi-
 AS = $(DEVKITARM)/$(PREFIX)as
@@ -44,7 +36,8 @@ LDFLAGS = rom.ld -T linker.ld
 ASFLAGS = -mthumb -I ./data
 CFLAGS = -mthumb -mno-thumb-interwork -mcpu=arm7tdmi -mtune=arm7tdmi -mno-long-calls -march=armv4t -Wall -Wextra -Os -fira-loop-pressure -fipa-pta
 
-PYTHON = python3.7
+PYTHON = python3
+NARCHIVE = $(PYTHON) tools/narcpy.py
 LINK = build/linked.o
 OUTPUT = build/output.bin
 ####################### output #########################
@@ -91,7 +84,7 @@ all: $(OUTPUT)
 	$(NARCHIVE) extract base/root/a/0/2/8 -o build/a028/ -nf
 	$(PYTHON) scripts/make.py
 	$(ARMIPS) $(ARMIPS_SRCS)
-	make move_narc
+	$(MAKE) move_narc
 	$(NARCHIVE) create build/synth.narc build/a028/ -nf
 	cp build/synth.narc base/root/a/0/2/8
 	@echo -e "\e[32;1mMaking ROM..\e[37;1m"
@@ -111,3 +104,22 @@ move_narc:
 	$(NARCHIVE) extract base/root/a/0/3/8 -o build/textbox -nf
 	cp -r data/rawdata/textbox/. build/textbox
 	$(NARCHIVE) create base/root/a/0/3/8 build/textbox -nf
+
+build_tools:
+	mkdir -p tools/source
+	rm -r -f tools/source/ndstool
+	cd tools/source ; git clone https://github.com/devkitPro/ndstool.git
+	cd tools/source/ndstool ; git checkout fa6b6d01881363eb2cd6e31d794f51440791f336
+	cd tools/source/ndstool ; find . -name '*.sh' -execdir chmod +x {} \;
+	cd tools/source/ndstool ; ./autogen.sh
+	cd tools/source/ndstool ; ./configure && $(MAKE)
+	mv tools/source/ndstool/ndstool tools/ndstool
+	rm -r -f tools/source/ndstool
+
+	rm -r -f tools/source/armips
+	cd tools/source ; git clone --recursive https://github.com/Kingcom/armips.git
+	cd tools/source/armips ; mkdir build
+	cd tools/source/armips/build ; cmake -DCMAKE_BUILD_TYPE=Release ..
+	cd tools/source/armips/build ; cmake --build .
+	mv tools/source/armips/build/armips tools/armips
+	rm -r -f tools/source/armips
