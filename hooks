@@ -1,4 +1,6 @@
+#OvlNum Symbol Address RegisterHook
+
 #transparent textbox
-arm9 Tr_TextBox 0805B564 2
-arm9 FieldMsgPrintInit 0805B4EC 2
-arm9 WindowClose 08041190 0
+arm9 Tr_TextBox 0205B564 2
+arm9 FieldMsgPrintInit 0205B4EC 2
+arm9 WindowClose 02041190 0
