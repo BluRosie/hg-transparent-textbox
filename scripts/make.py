@@ -465,6 +465,10 @@ def offset():
                 files, symbol, address = line.split()
                 #offset = int(address, 16) - 0x08000000
                 try:
+                    addOffset = 0
+                    if '+' in symbol:
+                        symbol, addOffsetStr = symbol.split('+')
+                        addOffset = int(addOffsetStr, 16)
                     code = table[symbol]
                 except KeyError:
                     print('Symbol missing:', symbol)
